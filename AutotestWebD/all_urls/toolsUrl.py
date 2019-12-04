@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from apps.deployment_tool.views import  deployment_tool
+from apps.deployment_tool.views import deployment_tool
 
 
 urlpatterns = [

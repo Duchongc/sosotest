@@ -13,8 +13,8 @@ from all_models.models.A0003_attribute import *
 
 class TbStandardInterface(models.Model):
     #关联源文件
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     #解析结果
     fileName = models.CharField(db_column='fileName',max_length=3000,default="", verbose_name="文件名")
     # 解析出来的信息

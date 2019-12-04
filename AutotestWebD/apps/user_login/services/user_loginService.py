@@ -12,7 +12,7 @@ class UserLoginService(object):
 
     @staticmethod
     def getUserLoginMsg(loginName,pwd):
-        return TbUser.objects.filter(loginName=loginName,pwd=pwd)
+        return TbUser.objects.filter(loginName=loginName, pwd=pwd)
 
     @staticmethod
     def updateMd5(loginName,token):

@@ -135,11 +135,11 @@ SITE_NAME = confDict['SITE']['site_name']
 SITE_HEADER = confDict['SITE']['header']
 SITE_TITLE = confDict['SITE']['title']
 
-TCP_HOST = confDict[tcpKey]['host']
-TCP_PORT = int(confDict[tcpKey]['port'])
-TCP_UIPORT = int(confDict[tcpKey]['uiport'])
+# TCP_HOST = confDict[tcpKey]['host']
+# TCP_PORT = int(confDict[tcpKey]['port'])
+# TCP_UIPORT = int(confDict[tcpKey]['uiport'])
 
-print("TCP_HOST[%s] TCP_PORT[%s] TCP_UIPORT[%s]" % (TCP_HOST,TCP_PORT,TCP_UIPORT))
+# print("TCP_HOST[%s] TCP_PORT[%s] TCP_UIPORT[%s]" % (TCP_HOST,TCP_PORT,TCP_UIPORT))
 
 dbHost = confDict[dbKey]['host']
 dbPort = int(confDict[dbKey]['port'])

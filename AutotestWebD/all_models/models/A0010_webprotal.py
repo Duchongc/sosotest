@@ -419,8 +419,8 @@ class TbJiraBusinessLine(models.Model):
         return self.businessLineName
 
 class TbJiraBusinessLinePlatFormRelation(models.Model):
-    jiraBusinessLineId = models.ForeignKey(to=TbJiraBusinessLine,db_column="jiraBusinessLineId",verbose_name="jira上的业务线Id")
-    platformBusinessLineId = models.ForeignKey(to=TbBusinessLine,db_column="platformBusinessLineId",verbose_name="平台上的业务线Id")
+    jiraBusinessLineId = models.ForeignKey(to=TbJiraBusinessLine,db_column="jiraBusinessLineId",verbose_name="jira上的业务线Id", on_delete=models.CASCADE)
+    platformBusinessLineId = models.ForeignKey(to=TbBusinessLine,db_column="platformBusinessLineId",verbose_name="平台上的业务线Id", on_delete=models.CASCADE)
     addTime = models.DateTimeField(db_column='addTime', auto_now_add=True, blank=True, verbose_name="创建时间")
     modTime = models.DateTimeField(db_column='modTime', auto_now=True, blank=True, verbose_name="修改时间")
 
@@ -447,8 +447,8 @@ class TbjiraModule(models.Model):
         return self.moduleName
 
 class TbJiraModulePlatFormRelation(models.Model):
-    jiraModuleId = models.ForeignKey(to=TbjiraModule, db_column='jiraModuleId', verbose_name="业务线ID")
-    platformModuleId = models.ForeignKey(to=TbModules,db_column="platformModuleId",verbose_name="平台上的模块Id")
+    jiraModuleId = models.ForeignKey(to=TbjiraModule, db_column='jiraModuleId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    platformModuleId = models.ForeignKey(to=TbModules,db_column="platformModuleId",verbose_name="平台上的模块Id", on_delete=models.CASCADE)
 
     addTime = models.DateTimeField(db_column='addTime', auto_now_add=True, blank=True, verbose_name="创建时间")
     modTime = models.DateTimeField(db_column='modTime', auto_now=True, blank=True, verbose_name="修改时间")

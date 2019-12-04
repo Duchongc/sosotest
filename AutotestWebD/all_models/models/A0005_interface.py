@@ -15,9 +15,9 @@ class TbHttpInterface(models.Model):
     interfaceId = models.CharField(db_column='interfaceId', unique=True, max_length=25, verbose_name="接口ID，例如HTTP_INTERFACE_1")
     title = models.CharField(max_length=100, verbose_name="标题")
     casedesc = models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
-    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1)
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
+    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1, on_delete=models.CASCADE)
     caselevel = models.IntegerField(default= 5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
@@ -58,9 +58,9 @@ class TbHttpInterfaceDebug(models.Model):
 
     title = models.CharField(max_length=100, verbose_name="标题")
     casedesc = models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
-    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1)
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
+    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1, on_delete=models.CASCADE)
     caselevel = models.IntegerField(default= 5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
@@ -82,7 +82,7 @@ class TbHttpInterfaceDebug(models.Model):
     performanceTime = models.FloatField(db_column="performanceTime", default=1, verbose_name="接口性能时间")
 
     execStatus = models.IntegerField(db_column='execStatus',default=1,verbose_name="执行状态")
-    httpConfKey = models.ForeignKey(to=TbConfigHttp,to_field="httpConfKey",db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey")
+    httpConfKey = models.ForeignKey(to=TbConfigHttp,to_field="httpConfKey",db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey", on_delete=models.CASCADE)
     actualResult = models.TextField(db_column='actualResult', blank=True, default="",verbose_name="实际结果")
     assertResult = models.TextField(db_column='assertResult', blank=True, default="",verbose_name="断言结果")
     testResult = models.CharField(db_column='testResult', max_length=20,default='NOTRUN',verbose_name="执行结果")
@@ -105,8 +105,8 @@ class TbHttpInterfaceDebug(models.Model):
         verbose_name_plural = '09接口调试'
 
 class TbHttpInterfaceTag(models.Model):
-    interfaceId = models.ForeignKey(to=TbHttpInterface,to_field="interfaceId",db_column='interfaceId', max_length=25, verbose_name="接口ID")
-    tagId = models.ForeignKey(to=TbTag,db_column='tagId', max_length=25, verbose_name="tag表中的主键id")
+    interfaceId = models.ForeignKey(to=TbHttpInterface,to_field="interfaceId",db_column='interfaceId', max_length=25, verbose_name="接口ID", on_delete=models.CASCADE)
+    tagId = models.ForeignKey(to=TbTag,db_column='tagId', max_length=25, verbose_name="tag表中的主键id", on_delete=models.CASCADE)
 
     state = models.IntegerField(default=1, verbose_name="状态 0删除 1有效")
     addBy = models.ForeignKey(to=TbUser, to_field="loginName", related_name="TbHttpInterfaceTagAddBy", on_delete=models.CASCADE, db_column='addBy', verbose_name="创建者登录名")

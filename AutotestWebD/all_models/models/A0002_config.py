@@ -55,8 +55,8 @@ class TbConfigHttp(models.Model):
         return "%s(%s)" % (self.alias,self.httpConfKey)
 
 class TbUserHttpconf(models.Model):
-    loginName = models.ForeignKey(to=TbUser,to_field="loginName",related_name="TbUserHttpconfLoginname",db_column='loginName', max_length=30, blank=True, default="", verbose_name="执行人登录用户名")
-    httpConfKey = models.ForeignKey(to=TbConfigHttp, to_field="httpConfKey", db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey")
+    loginName = models.ForeignKey(to=TbUser,to_field="loginName",related_name="TbUserHttpconfLoginname",db_column='loginName', max_length=30, blank=True, default="", verbose_name="执行人登录用户名", on_delete=models.CASCADE)
+    httpConfKey = models.ForeignKey(to=TbConfigHttp, to_field="httpConfKey", db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey", on_delete=models.CASCADE)
     conflevel = models.IntegerField(verbose_name="配置优先级")
 
     state = models.IntegerField(default=1, verbose_name="状态 0删除 1有效")
@@ -93,8 +93,8 @@ class TbConfigUri(models.Model):
         return "%s(%s)" % (self.alias,self.uriKey)
 
 class TbUserUri(models.Model):
-    loginName = models.ForeignKey(to=TbUser,to_field="loginName",related_name="TbUserUriLoginname",db_column='loginName', max_length=30, blank=True, default="", verbose_name="执行人登录用户名")
-    uriKey = models.ForeignKey(to=TbConfigUri, to_field="uriKey", db_column='uriKey', max_length=20,verbose_name="执行环境的httpConfKey")
+    loginName = models.ForeignKey(to=TbUser,to_field="loginName",related_name="TbUserUriLoginname",db_column='loginName', max_length=30, blank=True, default="", verbose_name="执行人登录用户名", on_delete=models.CASCADE)
+    uriKey = models.ForeignKey(to=TbConfigUri, to_field="uriKey", db_column='uriKey', max_length=20,verbose_name="执行环境的httpConfKey", on_delete=models.CASCADE)
     conflevel = models.IntegerField(verbose_name="配置优先级")
 
     state = models.IntegerField(default=1, verbose_name="状态 0删除 1有效")

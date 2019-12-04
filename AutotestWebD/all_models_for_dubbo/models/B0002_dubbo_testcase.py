@@ -15,8 +15,8 @@ class Tb2DubboTestcase(models.Model):
     caseId = models.CharField(db_column='caseId', unique=True, max_length=25,verbose_name="caseId,可以理解为用例ID,格式HTTP_TESTCASE_1 - 99999999递增")
     title = models.CharField(max_length=100,verbose_name="用例标题")
     casedesc = models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     caselevel = models.IntegerField(default=5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     stepCount = models.IntegerField(db_column='stepCount',verbose_name="包含步骤数量")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
@@ -37,15 +37,15 @@ class Tb2DubboTestcaseDebug(models.Model):
     caseId = models.CharField(db_column='caseId', max_length=25,verbose_name="caseId,可以理解为用例ID,格式HTTP_TESTCASE_1 - 99999999递增")
     title = models.CharField(max_length=100,verbose_name="用例标题")
     casedesc =models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     caselevel = models.IntegerField(default=5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     stepCount = models.IntegerField(db_column='stepCount',verbose_name="包含步骤数量")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
 
     execStatus = models.IntegerField(db_column='execStatus',default=1,verbose_name="执行状态: NOTRUN = 1 RUNNING = 2 DONE = 3 EXCEPTION = 4")
-    httpConfKey = models.ForeignKey(to=TbConfigHttp, to_field="httpConfKey", db_column='httpConfKey', max_length=20, verbose_name="执行环境的httpConfKey")
+    httpConfKey = models.ForeignKey(to=TbConfigHttp, to_field="httpConfKey", db_column='httpConfKey', max_length=20, verbose_name="执行环境的httpConfKey", on_delete=models.CASCADE)
     assertResult = models.TextField(db_column='assertResult', blank=True, default="", verbose_name="断言结果")
     testResult = models.CharField(db_column='testResult', max_length=20, default='NOTRUN', verbose_name="执行结果")
     beforeExecuteTakeTime = models.IntegerField(db_column='beforeExecuteTakeTime', default=0, verbose_name="执行前耗时")
@@ -67,13 +67,13 @@ class Tb2DubboTestcaseDebug(models.Model):
         verbose_name_plural = '09DUBBO用例调试'
 
 class Tb2DubboTestcaseStep(models.Model):
-    caseId = models.ForeignKey(to=Tb2DubboTestcase,to_field="caseId",db_column='caseId', max_length=25, verbose_name="Tb2DubboTestcase表中的caseID")
+    caseId = models.ForeignKey(to=Tb2DubboTestcase,to_field="caseId",db_column='caseId', max_length=25, verbose_name="Tb2DubboTestcase表中的caseID", on_delete=models.CASCADE)
     stepNum = models.IntegerField(db_column='stepNum', verbose_name="步骤编号，每个caseID中的有效编号是从1递增")
 
     title = models.CharField(max_length=100, verbose_name="步骤标题，默认 步骤1，步骤2 等等")
     stepDesc = models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
 
     fromInterfaceId = models.CharField(db_column="fromInterfaceId",default="",max_length=30,verbose_name="步骤引用的接口Id")
@@ -112,8 +112,8 @@ class Tb2DubboTestcaseStepDebug(models.Model):
 
     title = models.CharField(max_length=100, verbose_name="步骤标题，默认 步骤1，步骤2 等等")
     stepDesc = models.TextField(default="",verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
 
     fromInterfaceId = models.CharField(db_column="fromInterfaceId",default="", max_length=30, verbose_name="步骤引用的接口Id")
@@ -137,7 +137,7 @@ class Tb2DubboTestcaseStepDebug(models.Model):
     # dataRecover = models.TextField(db_column='dataRecover', verbose_name="数据恢复信息")
 
     execStatus = models.IntegerField(db_column='execStatus',default=1,verbose_name="执行状态")
-    httpConfKey = models.ForeignKey(to=TbConfigHttp,to_field="httpConfKey",db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey")
+    httpConfKey = models.ForeignKey(to=TbConfigHttp,to_field="httpConfKey",db_column='httpConfKey', max_length=20,verbose_name="执行环境的httpConfKey", on_delete=models.CASCADE)
     actualResult = models.TextField(db_column='actualResult', blank=True, default="",verbose_name="实际结果")
     assertResult = models.TextField(db_column='assertResult', blank=True, default="",verbose_name="断言结果")
     testResult = models.CharField(db_column='testResult', max_length=20,default='NOTRUN',verbose_name="执行结果")

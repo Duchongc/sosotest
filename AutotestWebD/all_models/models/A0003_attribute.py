@@ -79,8 +79,8 @@ class TbTag(models.Model):
 
 
 class TbBusinessLineModuleRelation(models.Model):
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     level = models.IntegerField(default=10, verbose_name="显示优先级，数字越小越优先")
 
     class Meta:

@@ -30,7 +30,7 @@ def index(request):
                 del request.session["nextUrl"]
             else:
                 response = HttpResponseRedirect('/interfaceTest/HTTP_InterfaceCheck')
-            setLanguage(request, response,DEFAULT_LANGUAGE)
+            setLanguage(request, response, DEFAULT_LANGUAGE)
             return response
         else:
             response = HttpResponse("'<script>alert('用户名密码错误');window.location='/user/login'</script>'")
@@ -105,7 +105,7 @@ def userLogin(request):
             return response
         pwdMd5 = hashlib.md5()
         pwdMd5.update(pwd.encode("utf-8"))
-        userData = UserLoginService.getUserLoginMsg(userName,pwdMd5.hexdigest())
+        userData = UserLoginService.getUserLoginMsg(userName, pwdMd5.hexdigest())
         if userData:
             if userData[0].audit != 2:
                 response = HttpResponse("'<script>alert('用户状态不对，请联系管理员');window.location='/'</script>'")

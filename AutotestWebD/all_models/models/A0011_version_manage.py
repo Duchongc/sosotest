@@ -78,9 +78,9 @@ class TbVersionHttpInterface(models.Model):
     interfaceId = models.CharField(db_column='interfaceId', max_length=25, verbose_name="接口ID，例如HTTP_INTERFACE_1")
     title = models.CharField(max_length=100, verbose_name="标题")
     casedesc = models.CharField(max_length=1000, verbose_name="描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
-    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1)
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
+    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1, on_delete=models.CASCADE)
     caselevel = models.IntegerField(default= 5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
@@ -120,9 +120,9 @@ class TbVersionHttpTestcase(models.Model):
     caseId = models.CharField(db_column='caseId', max_length=25,verbose_name="caseId,可以理解为用例ID,格式HTTP_TESTCASE_1 - 99999999递增")
     title = models.CharField(max_length=100,verbose_name="用例标题")
     casedesc = models.CharField(max_length=1000,verbose_name="用例描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
-    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1)
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
+    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1, on_delete=models.CASCADE)
     caselevel = models.IntegerField(default=5, verbose_name="用例优先级，数字越小，优先级越高，从0-9。 0高 5中 9低")
     stepCount = models.IntegerField(db_column='stepCount',verbose_name="包含步骤数量")
     status = models.IntegerField(default=2, verbose_name="用例状态，1新建待审核 2审核通过 3审核未通过")
@@ -148,9 +148,9 @@ class TbVersionHttpTestcaseStep(models.Model):
 
     title = models.CharField(max_length=100, verbose_name="步骤标题，默认 步骤1，步骤2 等等")
     stepDesc = models.CharField(db_column='stepDesc', max_length=1000, verbose_name="步骤描述")
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
-    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1)
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
+    sourceId = models.ForeignKey(to=TbSource, db_column='sourceId', verbose_name="来源ID", default=1, on_delete=models.CASCADE)
     caseType = models.IntegerField(default=2, verbose_name="用例类型，0测试用例，不计入统计，不进入任务，1 接口计入统计 2接口步骤均计入统计 3步骤计入统计")
 
     fromInterfaceId = models.CharField(db_column="fromInterfaceId",default="",max_length=30,verbose_name="步骤引用的接口Id")
@@ -218,8 +218,8 @@ class TbVersionStandardInterface(models.Model):
     versionName = models.ForeignKey(to=TbVersion, to_field="versionName", related_name="TbVersionStandardInterfaceVersionName", on_delete=models.CASCADE, db_column='versionName', verbose_name="所属版本名称")
 
     #关联源文件
-    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID")
-    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID")
+    businessLineId = models.ForeignKey(to=TbBusinessLine, db_column='businessLineId', verbose_name="业务线ID", on_delete=models.CASCADE)
+    moduleId = models.ForeignKey(to=TbModules, db_column='moduleId', verbose_name="模块ID", on_delete=models.CASCADE)
     #解析结果
     fileName = models.CharField(db_column='fileName',max_length=3000,default="", verbose_name="文件名")
     # 解析出来的信息
